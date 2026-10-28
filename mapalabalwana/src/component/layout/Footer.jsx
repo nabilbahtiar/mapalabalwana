@@ -143,7 +143,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-3">
                 <Icon path={icons.mail} className="w-5 h-5 text-[#3F5F9A]" />
-                <span>info@mapalabalwana.org</span>
+                <span>mapalabalwana2526@gmail.com</span>
               </div>
             </div>
           </div>
@@ -227,15 +227,6 @@ const Footer = () => {
           <p>&copy; 2026 Mapala Balwana Fasilkom. All rights reserved.</p>
 
           <div className="flex items-center gap-6">
-            <span className="flex items-center gap-1">
-              Made with{" "}
-              <Icon
-                path={icons.heart}
-                className="w-3 h-3 text-red-500 fill-current animate-pulse"
-              />{" "}
-              by Balwana Dev
-            </span>
-
             <Link
               to="/login"
               className="text-slate-500 hover:text-slate-300 transition-colors"
