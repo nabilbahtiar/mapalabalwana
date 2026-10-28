@@ -180,11 +180,24 @@ const PengurusAdmin = () => {
     }
   };
 
+  // Helper parse NIA (BLWN.XX.XXX)
+  const parseNia = (niaString) => {
+    if (!niaString) return { part1: "", part2: "" };
+    const parts = niaString.replace(/^BLWN./i, "").split(".");
+    return {
+      part1: parts[0] || "",
+      part2: parts[1] || "",
+    };
+  };
+
   // Handlers Modal
   const handleEdit = (item) => {
+    const { part1, part2 } = parseNia(item.nia);
     setFormData({
       ...item,
       photo: item.photo || "",
+      niaPart1: part1,
+      niaPart2: part2,
     });
     setIsEditing(true);
     setIsModalOpen(true);
@@ -197,6 +210,8 @@ const PengurusAdmin = () => {
       id: null,
       name: "",
       nia: "",
+      niaPart1: "",
+      niaPart2: "",
       position: "Humas", // Default Jabatan
       role: "Anggota", // Default Role
       division: "Gunung Hutan", // Default Divisi
@@ -232,9 +247,17 @@ const PengurusAdmin = () => {
       finalRole = "Ketua"; // Atau biarkan kosong jika tidak perlu role tambahan
     }
 
+    // Format gabungan NIA: BLWN.[part1].[part2]
+    let finalNia = "";
+    if (formData.niaPart1 || formData.niaPart2) {
+      finalNia = `BLWN.${formData.niaPart1 || ""}.${formData.niaPart2 || ""}`;
+    } else if (formData.nia) {
+      finalNia = formData.nia;
+    }
+
     const submitData = new FormData();
     submitData.append("name", formData.name);
-    submitData.append("nia", formData.nia);
+    submitData.append("nia", finalNia);
     submitData.append("position", formData.position); // Dropdown 1
     submitData.append("role", finalRole); // Dropdown 2
     submitData.append("division", formData.division); // Dropdown 3
@@ -707,17 +730,41 @@ const PengurusAdmin = () => {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-1">
-                      NIA
+                      NIA (Nomor Induk Anggota)
                     </label>
-                    <input
-                      type="text"
-                      value={formData.nia}
-                      onChange={(e) =>
-                        setFormData({ ...formData, nia: e.target.value })
-                      }
-                      className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3F5F9A]/50 focus:border-[#3F5F9A]"
-                      placeholder="BLWN.XX.XXX"
-                    />
+                    <div className="flex items-center gap-1.5">
+                      <span className="px-3 py-2 bg-slate-100 border border-slate-300 rounded-lg text-sm font-bold text-slate-600 select-none">
+                        BLWN.
+                      </span>
+                      <input
+                        type="text"
+                        inputMode="numeric"
+                        placeholder="13"
+                        value={formData.niaPart1 || ""}
+                        onChange={(e) => {
+                          const val = e.target.value.replace(/[^0-9]/g, "");
+                          setFormData({ ...formData, niaPart1: val });
+                        }}
+                        className="w-20 px-3 py-2 border border-slate-300 rounded-lg text-center font-mono focus:outline-none focus:ring-2 focus:ring-[#3F5F9A]/50 focus:border-[#3F5F9A]"
+                        title="Nomor batch / angkatan"
+                      />
+                      <span className="font-bold text-slate-400 text-lg">.</span>
+                      <input
+                        type="text"
+                        inputMode="numeric"
+                        placeholder="111"
+                        value={formData.niaPart2 || ""}
+                        onChange={(e) => {
+                          const val = e.target.value.replace(/[^0-9]/g, "");
+                          setFormData({ ...formData, niaPart2: val });
+                        }}
+                        className="flex-1 px-3 py-2 border border-slate-300 rounded-lg font-mono focus:outline-none focus:ring-2 focus:ring-[#3F5F9A]/50 focus:border-[#3F5F9A]"
+                                                title="Nomor urut anggota"
+                      />
+                    </div>
+                    <p className="text-[11px] text-slate-400 mt-1">
+                      Format tersimpan: BLWN.${formData.niaPart1 || "XX"}.${formData.niaPart2 || "XXX"}
+                    </p>
                   </div>
                 </div>
 
