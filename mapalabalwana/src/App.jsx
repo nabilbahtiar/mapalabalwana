@@ -32,7 +32,7 @@ import ProdukPortalBerita from "./pages/admin/NewsPortalAdmin";
 import ProdukSistemInformasi from "./pages/admin/SistemInformasiAdmin";
 import ProdukBalwanaStore from "./pages/admin/ProdukBalwanaStore";
 import PengurusAdmin from "./pages/admin/PengurusAdmin";
-import GaleriAdmin from "./pages/admin/GaleriAdmin;";
+import GaleriAdmin from "./pages/admin/GaleriAdmin";
 import DivisiGunungHutan from "./pages/admin/DivisiGunungHutan";
 import DivisiKonservasi from "./pages/admin/DivisiKonservasi";
 import DivisiRockClimbing from "./pages/admin/DivisiRockClimbing";

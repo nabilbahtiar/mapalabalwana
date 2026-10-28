@@ -4,10 +4,10 @@ const cors = require("cors");
 const morgan = require("morgan");
 const path = require("path");
 
-const router = require("./src/routes"); // Kita akan buat ini di langkah 3
+const router = require("./src/routes");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 // --- MIDDLEWARES ---
 app.use(cors());
@@ -28,5 +28,12 @@ app.use((err, req, res, next) => {
     .status(500)
     .json({ status: false, message: err.message || "Internal Server Error" });
 });
+
+// Listener untuk menjalankan server lokal atau standalone
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server backend berjalan di http://localhost:${PORT}`);
+  });
+}
 
 module.exports = app;
