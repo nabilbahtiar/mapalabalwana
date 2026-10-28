@@ -126,7 +126,7 @@ const DashboardAdmin = () => {
         <div className="flex items-center gap-2 text-xs">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-700 font-semibold rounded-full border border-emerald-100">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            Database Online (Supabase)
+            Online
           </span>
           <span className="inline-flex items-center px-3 py-1 bg-slate-100 text-slate-600 font-medium rounded-full">
             Role: ADMIN
@@ -184,3 +184,4 @@ const DashboardAdmin = () => {
 };
 
 export default DashboardAdmin;
+
