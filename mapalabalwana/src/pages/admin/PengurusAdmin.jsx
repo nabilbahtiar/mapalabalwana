@@ -732,34 +732,34 @@ const PengurusAdmin = () => {
                     <label className="block text-sm font-medium text-slate-700 mb-1">
                       NIA (Nomor Induk Anggota)
                     </label>
-                    <div className="flex items-center gap-1.5">
-                      <span className="px-2.5 py-2 bg-slate-100 border border-slate-300 rounded-lg text-sm font-bold text-slate-600 select-none shrink-0">
+                    <div className="flex items-center gap-2">
+                      <span className="px-3 py-2 bg-slate-100 border border-slate-300 rounded-lg font-bold text-slate-700 select-none shrink-0">
                         BLWN.
                       </span>
                       <input
                         type="text"
                         inputMode="numeric"
-                        placeholder="Angkatan"
+                        maxLength={2}
                         value={formData.niaPart1 || ""}
                         onChange={(e) => {
-                          const val = e.target.value.replace(/[^0-9]/g, "");
+                          const val = e.target.value.replace(/[^0-9]/g, "").slice(0, 2);
                           setFormData({ ...formData, niaPart1: val });
                         }}
-                        className="w-24 shrink-0 px-2 py-2 border border-slate-300 rounded-lg text-center font-mono text-xs placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3F5F9A]/50 focus:border-[#3F5F9A]"
-                        title="Angkatan"
+                        className="w-20 px-3 py-2 border border-slate-300 rounded-lg text-center font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#3F5F9A]/50 focus:border-[#3F5F9A]"
+                        title="Angkatan (2 digit angka)"
                       />
-                      <span className="font-bold text-slate-400 text-lg">.</span>
+                      <span className="font-bold text-slate-400 text-lg select-none">.</span>
                       <input
                         type="text"
                         inputMode="numeric"
-                        placeholder="Anggota ke -"
+                        maxLength={3}
                         value={formData.niaPart2 || ""}
                         onChange={(e) => {
-                          const val = e.target.value.replace(/[^0-9]/g, "");
+                          const val = e.target.value.replace(/[^0-9]/g, "").slice(0, 3);
                           setFormData({ ...formData, niaPart2: val });
                         }}
-                        className="flex-1 min-w-0 px-2.5 py-2 border border-slate-300 rounded-lg font-mono text-xs placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3F5F9A]/50 focus:border-[#3F5F9A]"
-                        title="Nomor urut anggota"
+                        className="w-28 px-3 py-2 border border-slate-300 rounded-lg text-center font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#3F5F9A]/50 focus:border-[#3F5F9A]"
+                        title="Nomor anggota (3 digit angka)"
                       />
                     </div>
                   </div>
