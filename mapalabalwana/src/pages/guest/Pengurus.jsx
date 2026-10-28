@@ -85,7 +85,7 @@ const divisionColors = {
 
 const PengurusPage = () => {
   const [pengurusData, setPengurusData] = useState([]);
-  const [selectedPeriod, setSelectedPeriod] = useState("2024-2025");
+  const [selectedPeriod, setSelectedPeriod] = useState("2025-2026");
   const [selectedDivision, setSelectedDivision] = useState("Semua");
   const [loading, setLoading] = useState(true);
 
@@ -110,7 +110,7 @@ const PengurusPage = () => {
   // Generate periods dynamically
   const generatePeriods = () => {
     const periods = [];
-    for (let start = 2020; start <= 2025; start++) {
+    for (let start = 2011; start <= 2028; start++) {
       const end = start + 1;
       periods.unshift(`${start}-${end}`);
     }

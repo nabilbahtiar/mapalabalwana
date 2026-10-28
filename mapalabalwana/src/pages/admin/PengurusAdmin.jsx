@@ -76,13 +76,32 @@ const icons = {
 // Dropdown 1: Jabatan Struktural
 const POSITIONS = [
   "Ketua Umum",
-  "Sekretaris",
-  "Bendahara",
+  "Sekretaris Umum",
+  "Bendahara Umum",
   "Humas",
   "Diklat",
   "Perlengkapan",
   "Litbang",
 ];
+
+// Dropdown: Jurusan
+const MAJORS = [
+  "Teknologi Informasi",
+  "Sistem Informasi",
+  "Informatika",
+];
+
+// Dropdown: Periode (2011-2012 s/d 2028-2029)
+const PERIODS = [];
+for (let y = 2028; y >= 2011; y--) {
+  PERIODS.push(`${y}-${y + 1}`);
+}
+
+// Dropdown: Angkatan (2011 s/d 2028)
+const YEARS = [];
+for (let y = 2028; y >= 2011; y--) {
+  YEARS.push(String(y));
+}
 
 // Dropdown 2: Status Internal (Role)
 const ROLES = ["Koordinator", "Anggota"];
@@ -112,9 +131,9 @@ const PengurusAdmin = () => {
     position: "Humas", // Dropdown 1 (Jabatan)
     role: "Anggota", // Dropdown 2 (Status)
     division: "Gunung Hutan", // Dropdown 3 (Divisi)
-    period: "2024-2025",
-    major: "",
-    year: "",
+    period: "2025-2026",
+    major: "Informatika",
+    year: "2024",
     photo: "",
     linkedin: "",
     instagram: "",
@@ -181,9 +200,9 @@ const PengurusAdmin = () => {
       position: "Humas", // Default Jabatan
       role: "Anggota", // Default Role
       division: "Gunung Hutan", // Default Divisi
-      period: "2024-2025",
-      major: "",
-      year: "",
+      period: "2025-2026",
+      major: "Informatika",
+      year: "2024",
       photo: "",
       linkedin: "",
       instagram: "",
@@ -633,41 +652,58 @@ const PengurusAdmin = () => {
                     <label className="block text-sm font-medium text-slate-700 mb-1">
                       Jurusan
                     </label>
-                    <input
-                      type="text"
+                    <select
                       value={formData.major}
                       onChange={(e) =>
                         setFormData({ ...formData, major: e.target.value })
                       }
-                      className="w-full px-3 py-2 border border-slate-300 rounded-lg"
-                    />
+                      className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3F5F9A]/50 focus:border-[#3F5F9A]"
+                    >
+                      <option value="" disabled>Pilih Jurusan</option>
+                      {MAJORS.map((m) => (
+                        <option key={m} value={m}>
+                          {m}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-1">
                       Angkatan
                     </label>
-                    <input
-                      type="text"
+                    <select
                       value={formData.year}
                       onChange={(e) =>
                         setFormData({ ...formData, year: e.target.value })
                       }
-                      className="w-full px-3 py-2 border border-slate-300 rounded-lg"
-                    />
+                      className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3F5F9A]/50 focus:border-[#3F5F9A]"
+                    >
+                      <option value="" disabled>Pilih Angkatan</option>
+                      {YEARS.map((y) => (
+                        <option key={y} value={y}>
+                          {y}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-1">
                       Periode
                     </label>
-                    <input
-                      type="text"
+                    <select
                       value={formData.period}
                       onChange={(e) =>
                         setFormData({ ...formData, period: e.target.value })
                       }
-                      className="w-full px-3 py-2 border border-slate-300 rounded-lg"
-                      placeholder="2024-2025"
-                    />
+                      className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3F5F9A]/50 focus:border-[#3F5F9A]"
+                    >
+                      <option value="" disabled>Pilih Periode</option>
+                      {PERIODS.map((p) => (
+                        <option key={p} value={p}>
+                          {p}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-1">
@@ -679,8 +715,8 @@ const PengurusAdmin = () => {
                       onChange={(e) =>
                         setFormData({ ...formData, nia: e.target.value })
                       }
-                      className="w-full px-3 py-2 border border-slate-300 rounded-lg"
-                      placeholder="B.XX.XXX"
+                      className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3F5F9A]/50 focus:border-[#3F5F9A]"
+                      placeholder="BLWN.XX.XXX"
                     />
                   </div>
                 </div>
