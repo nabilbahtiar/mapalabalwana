@@ -241,14 +241,25 @@ const PengurusPage = () => {
                 className="group bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden flex flex-col h-full hover:-translate-y-2"
               >
                 {/* Image Container */}
-                <div className="relative h-80 overflow-hidden bg-slate-200">
-                  {/* GRAYSCALE DEFAULT, COLOR ON HOVER */}
-                  <img
-                    src={getImageUrl(p.photo)}
-                    alt={p.name}
-                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#3F5F9A]/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative h-80 overflow-hidden bg-slate-100 flex items-center justify-center">
+                  {p.photo ? (
+                    <img
+                      src={getImageUrl(p.photo)}
+                      alt={p.name}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = DEFAULT_AVATAR;
+                      }}
+                      className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-slate-100">
+                      <svg className="w-32 h-32 text-slate-300 translate-y-3" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+                      </svg>
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#3F5F9A]/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
 
                   {/* Social Icons */}
                   <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-4 translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">

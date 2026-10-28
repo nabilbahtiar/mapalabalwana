@@ -318,7 +318,7 @@ const PengurusAdmin = () => {
   };
 
   const getImageUrl = (url) => {
-    if (!url) return "";
+    if (!url) return DEFAULT_AVATAR;
     return url.startsWith("http") || url.startsWith("blob")
       ? url
       : `${IMAGE_URL}${url}`;
@@ -395,15 +395,22 @@ const PengurusAdmin = () => {
                     className="hover:bg-slate-50 transition-colors group"
                   >
                     <td className="p-4">
-                      <div className="w-10 h-10 rounded-full overflow-hidden border border-slate-200 bg-slate-100">
-                        <img
-                          src={getImageUrl(item.photo)}
-                          alt={item.name}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            e.target.src = DEFAULT_AVATAR;
-                          }}
-                        />
+                      <div className="w-10 h-10 rounded-full overflow-hidden border border-slate-200 bg-slate-100 flex items-center justify-center shrink-0">
+                        {item.photo ? (
+                          <img
+                            src={getImageUrl(item.photo)}
+                            alt={item.name}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = DEFAULT_AVATAR;
+                            }}
+                          />
+                        ) : (
+                          <svg className="w-6 h-6 text-slate-400 translate-y-0.5" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+                          </svg>
+                        )}
                       </div>
                     </td>
                     <td className="p-4">
@@ -565,14 +572,17 @@ const PengurusAdmin = () => {
                         <img
                           src={getImageUrl(formData.photo)}
                           alt="Preview"
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = DEFAULT_AVATAR;
+                          }}
                           className="w-24 h-24 rounded-full object-cover border border-slate-200 shadow-sm"
                         />
                       ) : (
-                        <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mb-2">
-                          <Icon
-                            path={icons.image}
-                            className="w-8 h-8 text-slate-300"
-                          />
+                        <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mb-2 overflow-hidden border border-slate-200 shadow-sm">
+                          <svg className="w-14 h-14 text-slate-400 translate-y-1.5" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+                          </svg>
                         </div>
                       )}
                       <div className="mt-3 w-full">
