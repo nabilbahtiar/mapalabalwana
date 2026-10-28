@@ -310,7 +310,7 @@ const RockClimbingPage = () => {
             </a>
           </div>
           <p className="text-xs text-blue-200">
-            © 2025 Mapala Balwana Fasilkom
+            © 2026 Mapala Balwana Fasilkom
           </p>
         </div>
       </footer>

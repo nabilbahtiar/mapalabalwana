@@ -224,7 +224,7 @@ const Footer = () => {
 
         {/* BOTTOM BAR */}
         <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-          <p>&copy; 2025 Mapala Balwana Fasilkom. All rights reserved.</p>
+          <p>&copy; 2026 Mapala Balwana Fasilkom. All rights reserved.</p>
 
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-1">

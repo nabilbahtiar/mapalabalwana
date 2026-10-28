@@ -159,7 +159,7 @@ const LoginPage = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#3F5F9A]/50 focus:border-[#3F5F9A] transition-all"
-                  placeholder="mapalabalwana2526@gmail.com"
+                  placeholder="Masukkan Email"
                 />
               </div>
             </div>
@@ -219,7 +219,7 @@ const LoginPage = () => {
           </form>
 
           <p className="mt-8 text-center text-sm text-slate-400">
-            &copy; 2025 Mapala Balwana.
+            &copy; 2026 Mapala Balwana.
           </p>
         </div>
       </div>
