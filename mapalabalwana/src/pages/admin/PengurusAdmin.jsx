@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import api from "../../services/Api";
 import { IMAGE_URL } from "../../services/config";
 
+const DEFAULT_AVATAR = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2394a3b8'%3E%3Cpath d='M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z'/%3E%3C/svg%3E";
+
 /* --- 1. ICON COMPONENTS --- */
 const Icon = ({ path, className }) => (
   <svg
@@ -128,12 +130,14 @@ const PengurusAdmin = () => {
     id: null,
     name: "",
     nia: "",
-    position: "Humas", // Dropdown 1 (Jabatan)
-    role: "Anggota", // Dropdown 2 (Status)
-    division: "Gunung Hutan", // Dropdown 3 (Divisi)
-    period: "2025-2026",
-    major: "Informatika",
-    year: "2024",
+    niaPart1: "",
+    niaPart2: "",
+    position: "", // Dropdown 1 (Jabatan)
+    role: "", // Dropdown 2 (Status)
+    division: "", // Dropdown 3 (Divisi)
+    period: "",
+    major: "",
+    year: "",
     photo: "",
     linkedin: "",
     instagram: "",
@@ -212,12 +216,12 @@ const PengurusAdmin = () => {
       nia: "",
       niaPart1: "",
       niaPart2: "",
-      position: "Humas", // Default Jabatan
-      role: "Anggota", // Default Role
-      division: "Gunung Hutan", // Default Divisi
-      period: "2025-2026",
-      major: "Informatika",
-      year: "2024",
+      position: "", // Mulai kosong
+      role: "", // Mulai kosong
+      division: "", // Mulai kosong
+      period: "", // Mulai kosong
+      major: "", // Mulai kosong
+      year: "", // Mulai kosong
       photo: "",
       linkedin: "",
       instagram: "",
@@ -241,10 +245,35 @@ const PengurusAdmin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Logic Khusus: Jika Ketua Umum, Role otomatis 'Ketua' atau 'Koordinator' (disable pilihan)
+    if (!formData.position) {
+      alert("Silakan pilih Jabatan Struktural.");
+      return;
+    }
+    if (formData.position !== "Ketua Umum" && !formData.role) {
+      alert("Silakan pilih Status Internal.");
+      return;
+    }
+    if (!formData.division) {
+      alert("Silakan pilih Divisi Spesialisasi.");
+      return;
+    }
+    if (!formData.major) {
+      alert("Silakan pilih Jurusan.");
+      return;
+    }
+    if (!formData.year) {
+      alert("Silakan pilih Angkatan.");
+      return;
+    }
+    if (!formData.period) {
+      alert("Silakan pilih Periode.");
+      return;
+    }
+
+    // Logic Khusus: Jika Ketua Umum, Role otomatis 'Ketua'
     let finalRole = formData.role;
     if (formData.position === "Ketua Umum") {
-      finalRole = "Ketua"; // Atau biarkan kosong jika tidak perlu role tambahan
+      finalRole = "Ketua";
     }
 
     // Format gabungan NIA: BLWN.[part1].[part2]
@@ -372,8 +401,7 @@ const PengurusAdmin = () => {
                           alt={item.name}
                           className="w-full h-full object-cover"
                           onError={(e) => {
-                            e.target.src =
-                              "https://via.placeholder.com/150?text=User";
+                            e.target.src = DEFAULT_AVATAR;
                           }}
                         />
                       </div>
@@ -599,15 +627,19 @@ const PengurusAdmin = () => {
                           Jabatan Struktural
                         </label>
                         <select
+                          required
                           value={formData.position}
-                          onChange={(e) =>
+                          onChange={(e) => {
+                            const newPos = e.target.value;
                             setFormData({
                               ...formData,
-                              position: e.target.value,
-                            })
-                          }
+                              position: newPos,
+                              role: newPos === "Ketua Umum" ? "Ketua" : formData.role,
+                            });
+                          }}
                           className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3F5F9A]/50 focus:border-[#3F5F9A]"
                         >
+                          <option value="" disabled>Pilih Jabatan Struktural</option>
                           {POSITIONS.map((pos) => (
                             <option key={pos} value={pos}>
                               {pos}
@@ -622,13 +654,15 @@ const PengurusAdmin = () => {
                           Status Internal
                         </label>
                         <select
+                          required
                           value={formData.role}
                           onChange={(e) =>
                             setFormData({ ...formData, role: e.target.value })
                           }
                           className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3F5F9A]/50 focus:border-[#3F5F9A] disabled:bg-slate-100 disabled:text-slate-400"
-                          disabled={formData.position === "Ketua Umum"} // Disable jika Ketua Umum
+                          disabled={formData.position === "Ketua Umum"}
                         >
+                          <option value="" disabled>Pilih Status Internal</option>
                           {ROLES.map((role) => (
                             <option key={role} value={role}>
                               {role}
@@ -648,6 +682,7 @@ const PengurusAdmin = () => {
                           Divisi Spesialisasi
                         </label>
                         <select
+                          required
                           value={formData.division}
                           onChange={(e) =>
                             setFormData({
@@ -657,6 +692,7 @@ const PengurusAdmin = () => {
                           }
                           className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3F5F9A]/50 focus:border-[#3F5F9A]"
                         >
+                          <option value="" disabled>Pilih Divisi Spesialisasi</option>
                           {DIVISIONS.map((div) => (
                             <option key={div} value={div}>
                               {div}
