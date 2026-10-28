@@ -27,6 +27,7 @@ import Kontak from "./pages/guest/Kontak_FIX"; // ✅ Casing sudah final: Kontak
 import NotFound from "./pages/NotFound";
 
 // --- PAGES: ADMIN ---
+import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import ProdukGIS from "./pages/admin/ProdukGIS";
 import ProdukPortalBerita from "./pages/admin/NewsPortalAdmin";
 import ProdukSistemInformasi from "./pages/admin/SistemInformasiAdmin";
@@ -97,10 +98,12 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             {/* === 3. PROTECTED ADMIN ROUTES === */}
             <Route element={<PrivateRoute />}>
-              {/* Dashboard Index Route */}
-              <Route path="/admin" element={<Produk />} />
+              {/* Dashboard Index Routes */}
+              <Route path="/admin" element={<DashboardAdmin />} />
+              <Route path="/admin/dashboard" element={<DashboardAdmin />} />
 
               {/* Produk */}
+              <Route path="/admin/produk" element={<Produk />} />
               <Route path="/admin/produk/gis" element={<ProdukGIS />} />
               <Route
                 path="/admin/produk/portal-berita"

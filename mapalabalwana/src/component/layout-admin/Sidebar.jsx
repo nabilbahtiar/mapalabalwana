@@ -26,11 +26,26 @@ const Sidebar = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false); // State untuk Mobile
   const location = useLocation();
 
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  const userName = user?.name || "Admin Balwana";
+  const userEmail = user?.email || "mapalabalwana2526@gmail.com";
+
   // 1. Gunakan useMemo agar objek menuItems stabil (tidak dibuat ulang tiap render)
   // Ini mengatasi error "missing dependency" di useEffect
   const menuItems = useMemo(
     () => [
-      
+      {
+        id: "dashboard",
+        label: "Dashboard",
+        icon: <LayoutDashboard className="w-5 h-5" />,
+        href: "/admin/dashboard",
+      },
+      {
+        id: "pengurus",
+        label: "Pengurus",
+        icon: <FileText className="w-5 h-5" />,
+        href: "/admin/pengurus",
+      },
       {
         id: "produk",
         label: "Produk",
@@ -88,12 +103,6 @@ const Sidebar = () => {
         ],
       },
       {
-        id: "pengurus",
-        label: "Pengurus",
-        icon: <FileText className="w-5 h-5" />,
-        href: "/admin/pengurus",
-      },
-      {
         id: "settings",
         label: "Pengaturan",
         icon: <Settings className="w-5 h-5" />,
@@ -121,7 +130,13 @@ const Sidebar = () => {
     setOpenSubmenu(openSubmenu === id ? null : id);
   };
 
-  const isActive = (href) => location.pathname === href;
+  const isActive = (href) => {
+    if (href === "/admin/dashboard") {
+      return location.pathname === "/admin/dashboard" || location.pathname === "/admin";
+    }
+    return location.pathname === href;
+  };
+
   const isParentActive = (item) =>
     item.subItems?.some((sub) => location.pathname.startsWith(sub.href));
 
@@ -144,7 +159,6 @@ const Sidebar = () => {
       )}
 
       {/* --- SIDEBAR CONTAINER --- */}
-      {/* Kita ganti motion.div dengan aside + CSS transition biasa agar ringan */}
       <aside
         className={`
           fixed left-0 top-0 h-full bg-white shadow-xl border-r border-slate-200 z-[70] 
@@ -230,7 +244,7 @@ const Sidebar = () => {
                   // SINGLE LINK
                   <Link
                     to={item.href}
-                    onClick={() => setIsMobileOpen(false)} // Tutup sidebar saat klik di mobile
+                    onClick={() => setIsMobileOpen(false)}
                     className={`flex items-center px-3 py-3 rounded-xl transition-all duration-200 group
                       ${
                         active
@@ -302,15 +316,15 @@ const Sidebar = () => {
             }`}
           >
             <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#3F5F9A] to-blue-400 flex items-center justify-center text-white font-bold text-sm shadow-sm">
-              A
+              {userName.charAt(0).toUpperCase()}
             </div>
             {!isCollapsed && (
               <div className="overflow-hidden">
                 <p className="text-sm font-bold text-slate-700 truncate font-sans">
-                  Admin
+                  {userName}
                 </p>
                 <p className="text-[10px] text-slate-400 truncate">
-                  admin@balwana.org
+                  {userEmail}
                 </p>
               </div>
             )}

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 /* --- 1. ICON HELPER & DATA --- */
 const Icon = ({ path, className }) => (
@@ -234,6 +235,14 @@ const Footer = () => {
               />{" "}
               by Balwana Dev
             </span>
+
+            <Link
+              to="/login"
+              className="text-slate-500 hover:text-slate-300 transition-colors"
+              title="Admin Login"
+            >
+              Admin Portal
+            </Link>
 
             <button
               onClick={scrollToTop}
