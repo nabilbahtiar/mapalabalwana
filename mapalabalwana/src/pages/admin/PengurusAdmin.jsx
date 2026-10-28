@@ -482,7 +482,7 @@ const PengurusAdmin = () => {
             className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
             onClick={() => setIsModalOpen(false)}
           ></div>
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl relative z-10 overflow-hidden animate-in fade-in zoom-in-95 duration-200 flex flex-col max-h-[90vh]">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl relative z-10 overflow-hidden animate-in fade-in zoom-in-95 duration-200 flex flex-col max-h-[90vh]">
             <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
               <h3 className="font-bold text-slate-800 flex items-center gap-2">
                 <Icon path={icons.user} className="w-5 h-5 text-[#3F5F9A]" />
@@ -496,7 +496,7 @@ const PengurusAdmin = () => {
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-6">
+            <div className="flex-1 overflow-y-auto overflow-x-hidden p-6">
               <form
                 id="pengurusForm"
                 onSubmit={handleSubmit}
@@ -733,38 +733,35 @@ const PengurusAdmin = () => {
                       NIA (Nomor Induk Anggota)
                     </label>
                     <div className="flex items-center gap-1.5">
-                      <span className="px-3 py-2 bg-slate-100 border border-slate-300 rounded-lg text-sm font-bold text-slate-600 select-none">
+                      <span className="px-2.5 py-2 bg-slate-100 border border-slate-300 rounded-lg text-sm font-bold text-slate-600 select-none shrink-0">
                         BLWN.
                       </span>
                       <input
                         type="text"
                         inputMode="numeric"
-                        placeholder="13"
+                        placeholder="Angkatan"
                         value={formData.niaPart1 || ""}
                         onChange={(e) => {
                           const val = e.target.value.replace(/[^0-9]/g, "");
                           setFormData({ ...formData, niaPart1: val });
                         }}
-                        className="w-20 px-3 py-2 border border-slate-300 rounded-lg text-center font-mono focus:outline-none focus:ring-2 focus:ring-[#3F5F9A]/50 focus:border-[#3F5F9A]"
-                        title="Nomor batch / angkatan"
+                        className="w-24 shrink-0 px-2 py-2 border border-slate-300 rounded-lg text-center font-mono text-xs placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3F5F9A]/50 focus:border-[#3F5F9A]"
+                        title="Angkatan"
                       />
                       <span className="font-bold text-slate-400 text-lg">.</span>
                       <input
                         type="text"
                         inputMode="numeric"
-                        placeholder="111"
+                        placeholder="Anggota ke -"
                         value={formData.niaPart2 || ""}
                         onChange={(e) => {
                           const val = e.target.value.replace(/[^0-9]/g, "");
                           setFormData({ ...formData, niaPart2: val });
                         }}
-                        className="flex-1 px-3 py-2 border border-slate-300 rounded-lg font-mono focus:outline-none focus:ring-2 focus:ring-[#3F5F9A]/50 focus:border-[#3F5F9A]"
-                                                title="Nomor urut anggota"
+                        className="flex-1 min-w-0 px-2.5 py-2 border border-slate-300 rounded-lg font-mono text-xs placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#3F5F9A]/50 focus:border-[#3F5F9A]"
+                        title="Nomor urut anggota"
                       />
                     </div>
-                    <p className="text-[11px] text-slate-400 mt-1">
-                      Format tersimpan: BLWN.${formData.niaPart1 || "XX"}.${formData.niaPart2 || "XXX"}
-                    </p>
                   </div>
                 </div>
 
